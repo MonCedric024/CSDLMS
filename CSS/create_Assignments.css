@@ -1,0 +1,94 @@
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    /*background-image: url('Bg_image.jpg');*/
+    background-color: gainsboro;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed; 
+}
+    
+h1 {
+    text-align: center;
+}
+form {
+    margin: 130px auto 30px; /* Adjust the top margin to move the form downward */
+    border: 2px solid black;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    width: calc(100% - 40px); 
+    max-width: 600px; 
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+textarea, input[type="file"], input[type="datetime-local"], button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #45a049;
+}
+.navigation {
+    margin-top: 20px;
+    text-align: center;
+}
+  
+.navigation-buttons {
+    display: inline-block;
+}
+  
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 10px;
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+  
+.button:hover {
+    background-color: #45a049;
+    color: black;
+}
+
+/* CSS para sa footer */
+footer {
+    position: fixed;
+    bottom: 0; 
+    left: 0;
+    width: 100%;
+    background-color: #074173;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.yellow-text {
+    color: yellow;
+}
+
+/* Responsive design */
+@media only screen and (max-width: 600px) {
+    footer {
+        font-size: 12px;
+    }
+}

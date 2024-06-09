@@ -1,0 +1,166 @@
+
+#enrollModal {
+    display: none;
+}
+#enrollModal {
+    display: none;
+}
+.logo img {
+    width: 280px; 
+    height: auto; 
+    margin-left: -40px;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; 
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+
+
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Other styles remain the same */
+
+
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+.btn_disabled {
+    background-color: rgb(224, 224, 224);
+    border: 1px black;
+    color: rgb(211, 211, 211);
+    width: 90%;
+    padding: 8px 15px 8px 15px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+}
+.btn{
+    background-color: #887357;
+    color: white;
+    border: 1px black;
+    width: 90%;
+    padding: 8px 15px 8px 15px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.pagination a.active {
+    background-color: #887357;
+    color: white;
+    border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #685c4c;
+    border-radius: 5px;
+    color: white;
+}
+.table-container{
+    width: 60rem;
+    margin-left: 25%;
+  }
+  th{
+      background-color: #2e3f47;
+      color: #ffffff;
+      text-align: center;
+    }
+   td {
+      text-align: left;
+      padding-left: 10px;
+    }
+  .display{
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
+    border-collapse: collapse;
+    width: 100%;
+    z-index: 1;
+    font-size: 12px;
+    margin-bottom: -70px;
+
+    }
+  .display th{
+      padding:20px;
+  
+    }
+  .display tr:nth-child(even) td {
+      background-color:  #a5aeb3; 
+    }
+    
+  .display tr:nth-child(odd) td {
+      background-color: #ffffff;
+    }
+    .modal h2{
+        color: black;
+        text-shadow: none;
+    }

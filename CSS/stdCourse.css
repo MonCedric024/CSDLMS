@@ -1,0 +1,232 @@
+/* Reset default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+   
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0 auto;
+    background-image: url('Bg_image.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center center;  
+    background-attachment: fixed;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: whitesmoke;
+    max-width: 800px; 
+    margin: 20px auto; 
+}
+
+h3{
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 10px;
+}
+th,
+td {
+    border: 2px solid black;
+    padding: 10px;
+    text-align: left;
+    overflow: auto; /* Dagdag na property para sa scroll bar */
+}
+th {
+    background-color: #007bff;
+    color: white;
+}
+    /* Style for disabled button */
+    input[type="submit"][disabled] {
+        cursor: not-allowed; /* Change cursor */
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+.enroll-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.enroll-button:hover {
+    background-color: #0056b3;
+}
+  
+.navigation {
+    margin-top: 20px;
+    text-align: center;
+}
+  
+.navigation-buttons {
+    display: inline-block;
+}
+  
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 10px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+  
+.button:hover {
+    background-color: #0056b3;
+    color: black;
+}
+
+/* CSS para sa footer */
+footer {
+    background-color: #007bff; 
+    color: #fff; 
+    text-align: center; 
+    padding: 10px 0; 
+    
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    font-size: 14px; 
+    font-weight: bold; 
+}
+
+.yellow-text {
+    color: yellow;
+}
+
+/* Responsive design */
+@media only screen and (max-width: 600px) {
+    table {
+        margin: 10px auto;
+    }
+}
+@media only screen and (max-width: 600px) {
+    footer {
+        font-size: 12px; /* I-adjust ang font size sa mas maliit na screen */
+    }
+}
+#enrollModal {
+    display: none;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+}
+
+.modal-content {
+    top: 35%;
+    left: 42%;
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 400px; /* Set maximum width */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 15px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn_disabled {
+    background-color: rgb(224, 224, 224);
+    border: 1px black;
+    color: rgb(211, 211, 211);
+    width: 100%;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+button{
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button:hover{
+    background-color: #45a049;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    margin: 0 5px; /* Adjust margin for spacing between pagination links */
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
+}

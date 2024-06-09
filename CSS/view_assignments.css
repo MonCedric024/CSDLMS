@@ -1,0 +1,104 @@
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: gainsboro;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 30px; /* Adjust the top margin for the heading */
+}
+
+/* CSS for the table */
+table {
+
+    margin: 150px auto; /* Center the table */
+    border-collapse: collapse;
+    width: calc(100% - 60px);
+    max-width: 800px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: whitesmoke;
+}
+
+/* CSS for table header */
+th {
+    background-color: #f2f2f2;
+    border-bottom: 2px solid black;
+    text-align: left;
+    padding: 10px;
+}
+
+/* CSS for table data */
+td {
+    border-bottom: 1px solid #dddddd;
+    text-align: left;
+    padding: 10px;
+}
+
+/* CSS for alternate row color */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* CSS for no assignments message */
+.no-assignments {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.delete-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #45a049;
+}
+
+.back-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 auto; 
+    display: block; 
+}
+
+.back-button:hover {
+    background-color: #45a049;
+}
+
+
+/* CSS for the footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #074173;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.yellow-text {
+    color: yellow;
+}
+
+/* Responsive design */
+@media only screen and (max-width: 600px) {
+    footer {
+        font-size: 12px;
+    }
+}

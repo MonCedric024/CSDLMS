@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    background-image: url('Bg_image.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center center;  
+    background-attachment: fixed;
+    color: white;
+}
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+table {
+    
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+th, td {
+    
+    border: 1px solid gainsboro;
+    padding: 8px;
+    text-align: left;
+    color: black;
+    background-color: whitesmoke;
+}
+th {
+    background-color: whitesmoke;
+    color: black;
+}
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+}
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+p {
+    text-align: center;
+}
+/* CSS para sa footer */
+footer {
+    background-color: #45a049; 
+    color: #fff; 
+    text-align: center; 
+    padding: 10px 0; 
+    font-size: 14px; 
+    font-weight: bold;
+    position: fixed; /* Change position to fixed */
+    bottom: 0; /* Position at the bottom of the screen */
+    width: 100%; /* Full width */
+}
+.yellow-text {
+    color: yellow;
+}
+
+
+/* Adjust margin-top accordingly */
+.back-button {
+    position: absolute; 
+    top: 650px; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; 
+}
+
+/* Additional styles for the button */
+.back-button a {
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button a:hover {
+    background-color: #45a049;
+    color: black;
+}
+
+/* Responsive design */
+@media only screen and (max-width: 600px) {
+    footer {
+        font-size: 12px; /* Adjust the font size for smaller screens */
+    }
+    .back-button {
+        top: 20px; /* Adjust the button position for smaller screens */
+    }
+}
+
+/* Responsive design */
+@media only screen and (max-width: 600px) {
+    table {
+        margin: 10px auto;
+    }
+}

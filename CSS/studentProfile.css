@@ -1,0 +1,97 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('Bg_image.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center center;  
+    background-attachment: fixed;
+}
+  
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px; 
+}
+  
+.card {
+    
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+  
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+  
+.card-header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+  
+.card-body {
+    padding: 20px;
+}
+  
+.text-center {
+    text-align: center;
+}
+  
+.list-group {
+    list-style: none;
+}
+  
+.list-group-item {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+  
+.list-group-item:last-child {
+    border-bottom: none;
+}
+  
+.list-group-item a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s;
+}
+  
+.list-group-item a:hover {
+    color: #007bff;
+}
+footer {
+    background-color: #007bff;; 
+    color: whitesmoke;
+    text-align: center; 
+    padding: 10px; 
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
+    font-size: 14px; 
+    font-weight: bold; 
+}
+
+
+.yellow-text {
+    color: yellow;
+}
+
+/* Responsive design */
+@media only screen and (max-width: 600px) {
+    footer {
+        font-size: 12px; 
+    }
+}
+  

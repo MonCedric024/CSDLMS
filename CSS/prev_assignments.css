@@ -1,0 +1,102 @@
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0 auto;
+    background-image: url('Bg_image.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    min-height: 100vh; /* Ensure body covers the full height of the viewport */
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    background-color: whitesmoke;
+    max-width: 1200px; 
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+form {
+    margin: 0;
+    padding: 0;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.navigation {
+    margin-top: 20px;
+    text-align: center;
+}
+  
+.navigation-buttons {
+    display: inline-block;
+}
+  
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 10px;
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+  
+.button:hover {
+    background-color: #45a049;
+    color: black;
+}
+
+/* CSS para sa footer */
+footer {
+    background-color: #50C878; 
+    color: #fff; 
+    text-align: center; 
+    padding: 10px 0; 
+    width: 100%; 
+    font-size: 14px; 
+    font-weight: bold; 
+    margin-top: auto; /* Push the footer to the bottom */
+}
+
+.yellow-text {
+    color: yellow;
+}
+
+/* Responsive design */
+@media only screen and (max-width: 600px) {
+    footer {
+        font-size: 12px;
+    }
+}

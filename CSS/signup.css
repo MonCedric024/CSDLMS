@@ -1,0 +1,74 @@
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: whitesmoke;
+}
+form {
+    background-color: #fff;
+    max-width: 600px; /* Palakihin ang max-width base sa kagustuhan mo */
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.logo {
+    display: block;
+    margin: 0 auto 10px auto;
+    width: 50%;
+}
+div {
+    margin-bottom: 10px;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input[type="email"],
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #ccc;
+    background-color: whitesmoke;
+    border-radius: 3px;
+    box-sizing: border-box; 
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+input[type="submit"]:hover{
+    color: black;
+}
+.button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.button:hover{
+    color: black;
+}
+
+
+/* Responsive design */
+@media (max-width: 600px) {
+    form {
+        max-width: 300px;
+    }
+}
+

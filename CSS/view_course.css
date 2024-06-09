@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+*{
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+body{
+ 
+    background-color: #f2f2f2;
+}
+ul {
+    list-style-type: none;
+    margin-left: -10px;
+    padding: 0;
+    width: 11%;
+    background-color: #2e3f47;
+    height:900px;
+  }
+ul h3, a {
+    color: #f4f1f1;
+}
+ul h3{
+    padding: 10px;
+
+}
+ul hr{
+    width: 90%;
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+.signout{
+    width: 90%;
+    margin-top:10rem;
+}
+ul a{
+    text-decoration: none;
+}
+li {
+    padding: 0 0 3px 0;
+}
+li a {
+    display: flex;
+    color: #f4f1f1;
+    padding: 15px 16px;
+    text-decoration: none;
+    font-size:13px ;
+}
+  
+li a:hover {
+    background-color: #79969c;
+    color:#f2f2f2;
+  }
+li a.active {
+    background-color: #f2f2f2;
+    color: rgb(36, 36, 36);
+}
+svg {
+    margin-right: 7px;
+    margin-top: -3px;
+}
+header{
+    margin: 0;
+
+  }
+header h3{
+    text-align: right;
+    margin-top: -45px;
+  }
+header h2{
+    text-align: left;   
+  }
+.course{
+    list-style-type: none;
+    margin-left: 200px;
+    margin-top:-57.21rem;
+    padding: 0;
+    width: 11%;
+    background-color: #f2f2f2;
+    height:900px;
+
+}
+.course a {
+    color: black;
+}
+.course a:hover {
+    background-color: #2e3f47;
+    color: #f2f2f2;
+
+}
+
+.course_name{
+    width: max-content;
+    height: 10px;
+    padding: 20px;
+    font-weight: 900;
+}
+footer{
+    text-align: center;
+    margin-top:-4.47rem;
+}

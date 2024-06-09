@@ -1,0 +1,97 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    /*background-image: url('Bg_image.jpg');*/
+    background-color: gainsboro;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+h1, h3 {
+    text-align: center;
+    color: black;
+    margin-top: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: whitesmoke;
+    padding: 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a {
+    display: inline-block;
+    background-color: #4CAF50;
+    margin-left: 8px;
+    color: #fff;
+    padding: 3px 5px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+a:hover {
+    background-color: #45a049;
+    color: black;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+.navigation {
+    margin-top: 220px;
+    text-align: center;
+}
+.navigation-buttons {
+    display: inline-block;
+}
+.button {
+    position: fixed;
+    bottom: 100px;
+    right: 650px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+.button:hover {
+    background-color: #45a049;
+    color: black;
+}
+/* CSS para sa footer */
+footer {
+    position: fixed; 
+    bottom: 0; 
+    left: 0;
+    width: 100%;
+    background-color: #4CAF50;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+.yellow-text {
+    color: yellow;
+}
+/* Responsive design */
+@media only screen and (max-width: 600px) {
+    footer {
+        font-size: 12px; /* I-adjust ang font size sa mas maliit na screen */
+    }
+}

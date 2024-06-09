@@ -1,0 +1,47 @@
+.accordion_box{
+    color: rgb(0, 0, 0);
+    margin-left:30%;
+    margin-top: -52rem;
+    margin-bottom: 30rem;
+}
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 20px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    margin-bottom: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  .logo img {
+    width: 250px; 
+    height: auto; 
+    margin-left: -40px;
+}
+  
+  .active, .accordion:hover {
+    background-color: #ccc; 
+    box-shadow:none ;
+  }
+  
+  .panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+    margin-bottom: 20px;
+    margin-top: -20px;
+  }
+  .panel a {
+    text-decoration: none;
+    color: black;
+  }
+  .panel a:hover{
+    color: blue;
+  }
