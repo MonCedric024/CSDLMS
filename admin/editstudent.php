@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("ssisssssi", $name, $contactno, $age, $address, $email_id, $dob, $password, $gender, $student_id);
         if ($stmt->execute()) {
             $successMessage = "Student updated successfully";
-            header("location: /LMS/admin/adminstudent.php");
+            header("location: ../admin/adminstudent.php");
             exit;
         } else {
             $errorMessage = "Error updating student: " . $stmt->error;
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (!isset($_GET["id"])) {
-        header("location: /LMS/admin/index.php");
+        header("location: ../admin/index.php");
         exit;
     }
 
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $row = $result->fetch_assoc();
 
     if(!$row) {
-        header("location: /LMS/admin2/adminstudent.php");
+        header("location: ../admin2/adminstudent.php");
         exit;
     }
 
@@ -170,7 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 <div class="col-sm-3 d-grid">
-                    <a class="btn btn-outline-primary" href="/LMS/admin/adminstudent.php" role="button">Cancel</a>
+                    <a class="btn btn-outline-primary" href="../admin/adminstudent.php" role="button">Cancel</a>
                 </div>
             </div>
         </form>

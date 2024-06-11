@@ -6,6 +6,85 @@
     <title>View Assignments</title>
     <link rel="stylesheet" href="CSS/view_assignments.css"> 
 </head>
+<style>
+.course-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    width: 90%; 
+    margin: auto; 
+}
+
+.course-box {
+    width: calc(30% - 20px); 
+    height: 150px;
+    background-color: #f9f9f9;
+    border: 5px solid #ddd;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    margin-right: 20px; 
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+}
+
+@media (max-width: 768px) {
+    .course-box {
+        width: calc(50% - 20px); 
+    }
+}
+
+.course-info {
+    flex: 1; 
+}
+
+.course-info p {
+    margin: 5px 0;
+}
+
+.course-actions {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-end; 
+}
+
+.delete-button {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 3px; 
+    margin-top: 90px;
+	width: 120px;
+}
+
+.edit-button{
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin-top: 10px;
+    width: 120px;
+}
+
+.edit-button {
+    background-color: #007bff; 
+}
+
+.delete-button {
+    background-color: #dc3545; 
+}
+
+.edit-button:hover,
+.delete-button:hover {
+    opacity: 0.8;
+}
+
+.course-actions .delete-button i {
+    color: #fff;
+    margin-right: 5px;
+}
+</style>
 <body>
 <?php
 include('connect.php');
@@ -13,22 +92,20 @@ include('connect.php');
 if(isset($_GET['course_id'])) {
     $course_id = $_GET['course_id'];
 } else {
-    
     header('Location: new_instructor_profile.php');
     exit();
 }
-
 
 $query = "SELECT * FROM Assignment WHERE course_id = '$course_id'";
 $result = mysqli_query($conn, $query);
 
 if(mysqli_num_rows($result) > 0) {
-    echo "<table class='table'>";
-    echo "<thead><tr><th>Description</th><th>Time Left</th><th>Action</th></tr></thead>";
-    echo "<tbody>";
+    echo '<div class="course-container">';
     while($row = mysqli_fetch_assoc($result)) {
-        echo "<tr id='assignment_row_".$row['assignment_id']."'>";
-        echo "<td>".$row['description']."</td>";
+        echo '
+            <div class="course-box">
+                <div class="course-info">
+                    <p><strong>Description:</strong> '.$row['description'].'</p>';
         
         $due_time = strtotime($row['due_time']);
         $current_time = time();
@@ -36,37 +113,33 @@ if(mysqli_num_rows($result) > 0) {
         $days_left = floor($time_left / (60 * 60 * 24));
         $hours_left = floor(($time_left % (60 * 60 * 24)) / (60 * 60));
         
-        if ($days_left > 0) {
-            echo "<td>".$days_left." days ".$hours_left." hrs</td>";
+        if ($days_left > 0) {   
+            echo '<p><strong>Time Left:</strong> '.$days_left.' days '.$hours_left.' hrs</p>';
         } elseif ($hours_left > 0) {
-            echo "<td>".$hours_left." hrs</td>";
+            echo '<p><strong>Time Left:</strong> '.$hours_left.' hrs</p>';
         } else {
-            echo "<td>Expired</td>";
+            echo '<p><strong>Time Left:</strong> Expired</p>';
         }
-        echo "<td><button class='delete-button' type='button' onclick='deleteAssignment(".$row['assignment_id'].")'>Delete</button></td>";
         
-echo "</tr>";
-}
-echo "</tbody>";
-
-
-echo "<tfoot><tr><td colspan='3'><button class='back-button' onclick='goBack()'>Back</button></td></tr></tfoot>";
-
-
-    echo "</table>";
+        echo '
+                </div>
+                <div class="course-actions">
+                    <button class="delete-button" type="button" onclick="deleteAssignment('.$row['assignment_id'].')">Delete</button>
+                    <button class="edit-button" type="button" onclick="deleteAssignment('.$row['assignment_id'].')">Submission</button>
+                </div>
+            </div>';
+    }
+    echo '</div>';
+    echo "<tfoot><tr><td colspan='3'><button class='back-button' onclick='goBack()'>Back</button></td></tr></tfoot>";
 } else {
-    
     echo "<script>alert('No assignments found.'); window.history.back();</script>";
 }
 ?>
-
-
 <script>
    
     function goBack() {
         window.history.back();
     }
-
     
     function deleteAssignment(assignment_id) {
         if (confirm("Are you sure you want to delete this assignment?")) {

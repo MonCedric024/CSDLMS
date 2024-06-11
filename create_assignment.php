@@ -8,12 +8,9 @@
 
     <title>CSD-Learning Management System</title>
     <link rel="stylesheet" href="CSS/create_Assignments.css">
-
-
 </head>
 
 <style>
-
 .modal {
     display: none; 
     position: fixed;
@@ -50,7 +47,6 @@
 }
 </style>
 <body>
-
     <form action="upload_assignment.php" id="assignment_form" method="POST" enctype="multipart/form-data" onsubmit="return validateDate()">
         <?php
         include('connect.php');
@@ -58,9 +54,7 @@
 
         if (isset($_GET['course_id'])) {
             $_SESSION['course_id'] = $_GET['course_id']; 
-            
         } else {
-           
             header('Location: new_instructor_profile.php');
             exit();
         }
@@ -71,12 +65,13 @@
             <textarea name="description" id="assignment_form" cols="30" rows="4"></textarea>
         </div>
         <div>
-            <input type="file" name="file">
-        </div>
-        <div>
-            <input type="datetime-local" name="due_time" id="due_time">Due Date
+            Due Date<input type="datetime-local" name="due_time" id="due_time">
             <p id="date-error" style="color: red;"></p>
         </div>
+        <div>
+            <input type="file" name="files[]" id="fileInput" multiple onchange="updateFileList(this)">
+        </div>
+        <div id="fileList" style="margin-bottom: 30px;"></div> <!-- Container for the list of selected files -->
         <div>
             <button type="submit" name="submit"> Upload File</button>
         </div>
@@ -84,52 +79,57 @@
             <div class="navigation-buttons">
                 <a href="new_instructor_profile.php" class="button">BACK</a>
                 <a href="view_assignments.php?course_id=<?php echo $_GET['course_id']; ?>" class="button">View Assignments</a>
-            </div>
+            </div>  
         </div>
     </form>
 
     <div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p id="modal-message"></p>
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message"></p>
+        </div>
     </div>
-</div>
-    <?php
-    // print_r($_POST);
-    // print_r($_POST);
-    ?>
 
     <br>
     <footer>
         <p>Created By <span class="yellow-text">CSD E Learning Management System</span> All Rights Reserved</p>
     </footer>
 
-
     <script>
-function validateDate() {
-    var inputDate = new Date(document.getElementById("due_time").value);
-    var currentDate = new Date();
-    if (inputDate < currentDate) {
-        
-        var modal = document.getElementById("myModal");
-        var modalMessage = document.getElementById("modal-message");
-        modalMessage.textContent = "Due date cannot be in the past.";
-        modal.style.display = "block";
+    function validateDate() {
+        var inputDate = new Date(document.getElementById("due_time").value);
+        var currentDate = new Date();
+        if (inputDate < currentDate) {
+            
+            var modal = document.getElementById("myModal");
+            var modalMessage = document.getElementById("modal-message");
+            modalMessage.textContent = "Due date cannot be in the past.";
+            modal.style.display = "block";
 
-        
-        var span = document.getElementsByClassName("close")[0];
-        span.onclick = function() {
-            modal.style.display = "none";
-        };
+            var span = document.getElementsByClassName("close")[0];
+            span.onclick = function() {
+                modal.style.display = "none";
+            };
 
-        
-        return false;
-    } else {
-        return true;
+            return false;
+        } else {
+            return true;
+        }
     }
-}
-</script>
+    </script>
+    <script>
+    function updateFileList(input) {
+        var fileListDiv = document.getElementById('fileList');
+        fileListDiv.innerHTML = '';
+        
+        for (var i = 0; i < input.files.length; i++) {
+            var file = input.files[i];
+            var listItem = document.createElement('div');
+            listItem.textContent = file.name;
+            fileListDiv.appendChild(listItem);
+        }
+    }
+    </script>
 </body>
-
 </html>
 

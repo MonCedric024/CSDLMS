@@ -37,7 +37,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $email_id =  $_POST['email'];
     $password =  $_POST['password'];
     $_SESSION['email'] = $email_id;
-    $sql = "select *from instructor where email_id = '$email_id' and password = '$password  and status = 1'";
+    $sql = "select * from instructor where email_id = '$email_id' and password = '$password'  and status = 1";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
     // echo $count;
@@ -45,6 +45,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $flag = true;
         $_SESSION['name'] = $row['instructor_name'];
         $_SESSION['ins_id'] = $row['instructor_id'];
+        $_SESSION['id'] = $row['ID'];
         unset($row);
         unset($result);
         echo "<script>location.replace('new_instructor_profile.php')</script>";
@@ -56,6 +57,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         if (mysqli_num_rows($result) === 1) {
             $_SESSION['name'] = $row['name'];
             $_SESSION['student_id'] = $row['student_id'];
+            $_SESSION['section'] = $row['section'];
             unset($row);
             unset($result);
             echo "<script>location.replace('new_student_profile.php')</script>";

@@ -37,16 +37,18 @@ if (isset($_SESSION['ins_id'])) {
     <?php
     $students_per_page = 10; // Number of students per page
 
-    if (isset($_GET['course_id'])) {
-        $course_id = $_GET['course_id'];
+    if (isset($_GET['course_id']) && isset($_GET['section'])) {
+        // Escape query parameters to prevent SQL injection
+        $course_id = mysqli_real_escape_string($conn, $_GET['course_id']);
+        $section = mysqli_real_escape_string($conn, $_GET['section']);
 
         // Retrieve the course name based on the course_id
-        $course_name_sql = "SELECT course_name FROM course WHERE course_id = $course_id";
+        $course_name_sql = "SELECT course_name FROM course WHERE course_id = '$course_id'";
         $course_name_result = $conn->query($course_name_sql);
 
         if ($course_name_result && $course_name_result->num_rows > 0) {
             $course_name_row = $course_name_result->fetch_assoc();
-            $course_name = $course_name_row['course_name'];
+            $course_name = htmlspecialchars($course_name_row['course_name'], ENT_QUOTES, 'UTF-8');
 
             // Display the course name in the heading
             echo '<h1>Students Enrolled in ' . $course_name . '</h1>';
@@ -57,16 +59,12 @@ if (isset($_SESSION['ins_id'])) {
             echo '<h1>Students Enrolled</h1>';
         }
 
-        $student_sql = "SELECT student.student_id, student.name, student.course, enroll.course_id
-                        FROM student
-                        INNER JOIN enroll ON student.student_id = enroll.student_id
-                        WHERE enroll.course_id = $course_id";
-
+        $student_sql = "SELECT student_id, name, course FROM student WHERE section = '$section'";
         $student_result = $conn->query($student_sql);
 
         if ($student_result && $student_result->num_rows > 0) {
-            echo '<div class="table-container">
-            <table class="display" id="myTable">';
+            echo '<div class="table-container" style="margin-left: 80px">';
+            echo '<table class="display" id="myTable">';
             echo '<thead>
                     <tr>
                         <th>Student ID</th>
@@ -77,22 +75,22 @@ if (isset($_SESSION['ins_id'])) {
                     </tr>
                 </thead>
                 <tbody>';
-
+            
             while ($student = $student_result->fetch_assoc()) {
-                echo '<tr>
-                        <td>' . $student['student_id'] . '</td>
-                        <td>' . $student['name'] . '</td>
-                        <td>' . $student['course'] . '</td>
-                            <form action="submit_feedback.php" method="post">
-                        <td><input type="text" name="content" placeholder="Enter Comment" class="feedback">
-                                <input type="hidden" name="course_id" value="' . $course_id . '">
-                                <input type="hidden" name="student_id" value="' . $student['student_id'] . '">
-                        </td>
-                        <td><button type="submit">Submit</button></td>
-                            </form>
-                    </tr>';
+                echo '<tr>';
+                echo '<td>' . htmlspecialchars($student['student_id'], ENT_QUOTES, 'UTF-8') . '</td>';
+                echo '<td>' . htmlspecialchars($student['name'], ENT_QUOTES, 'UTF-8') . '</td>';
+                echo '<td>' . htmlspecialchars($student['course'], ENT_QUOTES, 'UTF-8') . '</td>';
+                echo '<td>
+                        <form action="submit_feedback.php" method="post">
+                            <input type="text" name="content" placeholder="Enter Comment" class="feedback">
+                            <input type="hidden" name="course_id" value="' . htmlspecialchars($course_id, ENT_QUOTES, 'UTF-8') . '">
+                            <input type="hidden" name="student_id" value="' . htmlspecialchars($student['student_id'], ENT_QUOTES, 'UTF-8') . '">
+                    </td>';
+                echo '<td><button type="submit">Submit</button></form></td>';
+                echo '</tr>';
             }
-
+            
             echo '</tbody>
                 </table>
                 </div>';
@@ -100,13 +98,12 @@ if (isset($_SESSION['ins_id'])) {
         } else {
             echo '<p>No students enrolled in this course.</p>';
         }
-
     } else {
-        echo '<p>Invalid course ID</p>';
+        echo '<p>Invalid course ID or section</p>';
     }
 
     $conn->close();
-    ?>
+?>
 </div>
 
 <footer>

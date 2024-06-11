@@ -17,42 +17,69 @@ print_r($_POST);
 </head>
 <body>
     <?php
-    if (isset($_POST['submit'])) {
-        $file = $_FILES['file'];
-        $filename = $file['name'];
-        $fileTempName = $file['tmp_name'];
-        $filesize = $file['size'];
-        $fileError = $file['error'];
-        $fileType = $file['type'];
-        $fileExt = explode('.', $filename);
-        $fileActualExt = strtolower(end($fileExt));
-        $allowed = array('jpg', 'jpeg', 'png', 'pdf', 'docx', 'mp4','ppt');
-        if (in_array($fileActualExt, $allowed)) {
-            if ($fileError === 0) {
-                if ($filesize < 10000000) {
-                    $filenamenew = uniqid('', true) . "." . $fileActualExt;
-                    $filedestination = 'uploads/' . $filenamenew;
-                    move_uploaded_file($fileTempName, $filedestination);
-                    // echo 'File Uploaded Successfully';
-                    $course_id = $_SESSION['course_id'];
-                    $instructor_id = $_SESSION['ins_id'];
-                    $filepath = $filedestination;
-                    $description = $_POST['description'];
-                    $due_time = $_POST['due_time'];
-                    // $start_time = 
-                    $sql = mysqli_query($conn, "insert into assignment (course_id , instructor_id ,  description , file_path , due_time) values('$course_id' ,'$instructor_id' ,'$description' , '$filepath' , '$due_time')");
-                    echo "<script>alert('Uploaded Successfully');</script>";
-                    echo "<script>location.replace('new_instructor_profile.php');</script>";
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+        include('connect.php');
+        session_start();
+
+        $course_id = $_SESSION['course_id'];
+        $instructor_id = $_SESSION['ins_id'];
+        $description = $_POST['description'];
+        $due_time = $_POST['due_time'];
+
+        $files = $_FILES['files'];
+        $allowed = array('jpg', 'jpeg', 'png', 'pdf', 'docx', 'mp4', 'ppt');
+        $upload_directory = 'uploads/';
+
+        // Insert assignment information
+        $sql_assignment = "INSERT INTO assignment (course_id, instructor_id, description, due_time) VALUES ('$course_id', '$instructor_id', '$description', '$due_time')";
+        if (mysqli_query($conn, $sql_assignment)) {
+            $last_insert_id = mysqli_insert_id($conn); // Get the last inserted assignment ID
+
+            // Process each uploaded file
+            foreach ($files['name'] as $key => $filename) {
+                $fileTmpName = $files['tmp_name'][$key];
+                $fileSize = $files['size'][$key];
+                $fileError = $files['error'][$key];
+                $fileType = $files['type'][$key];
+
+                $fileExt = explode('.', $filename);
+                $fileActualExt = strtolower(end($fileExt));
+
+                if (in_array($fileActualExt, $allowed)) {
+                    if ($fileError === 0) {
+                        if ($fileSize < 10000000) {
+                            $fileNewName = uniqid('', true) . "." . $fileActualExt;
+                            $fileDestination = $upload_directory . $fileNewName;
+                            if (move_uploaded_file($fileTmpName, $fileDestination)) {
+                                // Insert file information into database
+                                $sql_file = "INSERT INTO assignment_files (assignment_id, file_path) VALUES ('$last_insert_id', '$fileDestination')";
+                                if (mysqli_query($conn, $sql_file)) {
+                                } else {
+                                    echo "<script>alert('Error uploading file to database');</script>";
+                                }
+                            } else {
+                                echo "<script>alert('Error moving uploaded file');</script>";
+                            }
+                        } else {
+                            echo "<script>alert('File is too large');</script>";
+                        }
+                    } else {
+                        echo "<script>alert('Error uploading file');</script>";
+                    }
                 } else {
-                    echo 'File is too large !';
+                    echo "<script>alert('File type not allowed');</script>";
                 }
-            } else {
-                echo 'There was an error uploading the file.';
             }
+            echo "<script>alert('Assignment uploaded successfully');</script>";
+            echo "<script>location.replace('new_instructor_profile.php');</script>";
         } else {
-            echo 'File type not allowed';
+            echo "<script>alert('Error inserting assignment');</script>";
+            header('Location: new_instructor_profile.php');
+            exit();
         }
-        // print_r($file);
+    } else {
+        header('Location: new_instructor_profile.php');
+        exit();
     }
     ?>
     <a href="new_instructor_profile.php"> Profile Home </a>

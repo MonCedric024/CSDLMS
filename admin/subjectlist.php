@@ -4,16 +4,34 @@ $username = "root";
 $password = "";
 $database = "LMS";
 
+$course_id = htmlspecialchars($_GET['id']);
+
 $connection = new mysqli($servername, $username, $password, $database);
 if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
 
-$sql = "SELECT * FROM course";
+$sql = "SELECT * FROM subject WHERE course_id = $course_id";
 $result = $connection->query($sql);
 
 if (!$result) {
     die("Invalid query: " . $connection->error);
+}
+
+$sql = "SELECT * FROM course WHERE course_id = $course_id";
+$result1 = $connection->query($sql);
+
+if (!$result1) {
+    die("Invalid query: " . $connection->error);
+}
+
+if ($result1->num_rows > 0) {
+    $row = $result1->fetch_assoc();
+    $course_name = $row['course_name'];
+    $course_code = $row['course_code'];
+} else {
+    echo "<p>No course found with ID: $course_id</p>";
+    exit;
 }
 ?>
 
@@ -144,14 +162,18 @@ if (!$result) {
 		<main>
 			<div class="head-title">
 				<div class="left">
-					<h1>All Courses</h1>
+                    <h1>All Subjects of <?php echo $course_code; ?> - <?php echo $course_name; ?></h1>
 					<ul class="breadcrumb">
 						<li>
-							<a href="admincourses.php">Dashboard</a>
+							<a href="index.php">Dashboard</a>
+						</li>
+                        <li><i class='bx bx-chevron-right' ></i></li>
+                        <li>
+							<a href="admincourses.php">Courses</a>
 						</li>
 						<li><i class='bx bx-chevron-right' ></i></li>
 						<li>
-							<a class="active" href="admincourses.php">Courses</a>
+							<a class="active" href="subjectlist.php">Subjects</a>
 						</li>
 					</ul>
 				</div>
@@ -159,9 +181,9 @@ if (!$result) {
 
 			<ul class="box-info">
 				<li>
-					<a class='btn' href='addcourse.php' role button><i class='bx bx-plus' ></i></a>
+					<a class='btn' href='addsubject.php?id=<?php echo $course_id; ?>' role button><i class='bx bx-plus' ></i></a>
 					<span class="text">
-						<a class='btn' href='addcourse.php' role='button'>New Course</a>
+						<a class='btn' href='addsubject.php?id=<?php echo $course_id; ?>' role='button'>New Subject</a>
 					</span>
 				</li>
 			</ul>
@@ -170,7 +192,7 @@ if (!$result) {
 			<div class="table-data">
 				<div class="order">
 					<div class="head">
-						<h3>Courses</h3>
+						<h3>Subject</h3>
 						<!-- <i class='bx bx-search' ></i> -->
 					</div>
 					<div class="course-container">
@@ -179,16 +201,15 @@ if (!$result) {
 							echo "
 								<div class='course-box'>
 									<div class='course-info'>
-										<p><strong>COURSE DURATION:</strong> {$row['course_duration']}</p>
-										<p><strong>COURSE ID:</strong> {$row['course_id']}</p>
-										<p><strong>COURSE NAME:</strong> {$row['course_name']}</p>
-										<p><strong>COURSE DESCRIPTION:</strong> {$row['course_description']}</p>
-										<p><strong>COURSE TIME:</strong> {$row['starting_time']}</p>
+										<p><strong>TITLE:</strong> {$row['title']}</p>
+										<p><strong>COURSE DESCRIPTION:</strong> {$row['description']}</p>
 									</div>	
 									<div class='course-actions'>
-										<a href='editcourse.php?id={$row['course_id']}' class='edit-button' style='margin-top: 175px;'><i class='bx bxs-edit'></i>Edit</a>
-										<a href='deletecourse.php?id={$row['course_id']}' class='delete-button'><i class='bx bxs-trash-alt'></i>Delete</a>
-										<a href='subjectlist.php?id={$row['course_id']}' class='edit-button' style='background-color: green;'><i class='bx bxs-edit'></i>Subjects</a>
+										<a href='editcourse.php?id={$row['id']}' class='edit-button' style='margin-top: 175px;'><i class='bx bxs-edit'></i> Edit</a>
+										<a href='deletecourse.php?id={$row['id']}' class='delete-button'><i class='bx bxs-trash-alt'></i> Delete</a>"; ?>
+                                        <a href="instructorlist.php?id=<?php echo $row['id']; ?>&course_id=<?php echo $course_id; ?>" class="edit-button" style="background-color: green;"><i class="bx bxs-edit"></i> Instructor</a>
+                        <?php
+                            echo "
 									</div>
 								</div>";
 							}
