@@ -1,6 +1,24 @@
 <?php
 include('connect.php');
 session_start();
+
+$assignment = isset($_GET['assignment']) ? htmlspecialchars($_GET['assignment']) : '';
+
+$assignment_description = '';
+
+if (!empty($assignment)) {
+    $stmt = $conn->prepare("SELECT * FROM assignment WHERE assignment_id = ?");
+    $stmt->bind_param('s', $assignment);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result && $row = $result->fetch_assoc()) {
+        $assignment_description = htmlspecialchars($row['description']);
+        $due_time = ($row['due_time']);
+    }
+
+    $stmt->close();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,61 +29,87 @@ session_start();
     <link rel="stylesheet" href="CSS/assignments.css">
 </head>
 <body>
-    <h1>Published Assignments</h1>
+    <h1><?php echo $assignment_description; ?> (<?php echo $due_time; ?>)</h1>
 
     <table>
         <thead>
             <tr>
-                <th>Course Name</th>
+                <th>Student Name</th>
                 <th>Assignment Description</th>
-                <th>Due Date</th>
-                <th>Submitted</th>
+                <th>File Submitted</th>
+                <th>Date Submitted</th>
             </tr>
         </thead>
         <tbody>
         <?php
-        $sql = "SELECT course.course_name, assignment.description, assignment.due_time, assignment.assignment_id 
-                FROM assignment 
-                INNER JOIN course ON assignment.course_id = course.course_id
-                WHERE assignment.due_time >= NOW()";
-        
-        $result = $conn->query($sql);
+            if (isset($_GET['assignment'])) {
+                $assignment_id = $_GET['assignment'];
 
-        if ($result && $result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $course_name = $row['course_name'];
-                $assignment_name = $row['description'];
-                $due_date = $row['due_time'];
-                $assignment_id = $row['assignment_id'];
+                $submission_sql = "
+                SELECT 
+                    sa.student_id, 
+                    sa.course_id, 
+                    sa.assignment_id, 
+                    sa.submit_file_path, 
+                    sa.added,
+                    sa.marks, 
+                    sa.if_returned,
+                    a.instructor_id, 
+                    a.section AS assignment_section, 
+                    a.subject, 
+                    a.description, 
+                    a.due_time, 
+                    a.start_time,
+                    s.name AS student_name, 
+                    s.contactno, 
+                    s.age, 
+                    s.address, 
+                    s.email_id, 
+                    s.dob, 
+                    s.gender, 
+                    s.course AS student_course, 
+                    s.section AS student_section, 
+                    s.status
+                FROM 
+                    submit_assignment sa
+                JOIN 
+                    assignment a ON sa.assignment_id = a.assignment_id
+                JOIN 
+                    student s ON sa.student_id = s.student_id
+                WHERE 
+                    sa.assignment_id = ?";
+                
+                if ($stmt = $conn->prepare($submission_sql)) {
+                    $stmt->bind_param("i", $assignment_id);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
 
-                // Check if any student submitted the assignment
-                $submission_sql = "SELECT * FROM submit_assignment WHERE assignment_id = $assignment_id";
-                $submission_result = $conn->query($submission_sql);
-
-                echo '<tr>';
-                echo '<td>' . $course_name . '</td>';
-                echo '<td>' . $assignment_name . '</td>';
-                echo '<td>' . $due_date . '</td>';
-                echo '<td>';
-            if ($submission_result && $submission_result->num_rows > 0) {
-                echo '<a href="view_submissions.php?assignment_id=' . $assignment_id . '">View Submissions</a>';
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<tr>';
+                            echo '<td>' . htmlspecialchars($row['student_name']) . '</td>';
+                            echo '<td>' . htmlspecialchars($row['description']) . '</td>';
+                            echo '<td><a href="' . htmlspecialchars($row['submit_file_path']) . '" download class="download-button">Download</a></td>';
+                            echo '<td width="15%">' . htmlspecialchars($row['added']) . '</td>';
+                            echo '</tr>';
+                        }
+                    } else {
+                        echo '<tr><td colspan="5">No assignments found for this ID.</td></tr>';
+                    }
+                    $stmt->close();
+                } else {
+                    echo '<tr><td colspan="5">Query error: ' . $conn->error . '</td></tr>';
+                }
             } else {
-                echo 'Not yet submitted';
+                echo '<tr><td colspan="5">Assignment ID not provided.</td></tr>';
             }
-            echo '</td>';
-
-                echo '</tr>';
-            }
-        } else {
-            echo '<tr><td colspan="4">No published assignments found.</td></tr>';
-        }
         ?>
         </tbody>
     </table>
     <br>
     <div class="navigation">
         <div class="navigation-buttons">
-            <a href="new_instructor_profile.php" class="button">BACK</a>
+            <center><a href="new_instructor_profile.php">BACK</a><center>
         </div>
     </div>
 

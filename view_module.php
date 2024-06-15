@@ -87,7 +87,7 @@ if (isset($_GET['course_id']) && isset($_GET['section']) && isset($_GET['subject
     exit();
 }
 
-$query = "SELECT * FROM assignment WHERE subject = ? AND section = ?";
+$query = "SELECT * FROM module WHERE subject = ? AND section = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param('ss', $subject, $section);
 $stmt->execute();
@@ -96,24 +96,17 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     echo '<div class="course-container">';
     while ($row = $result->fetch_assoc()) {
-        $due_time = strtotime($row['due_time']);
-        $current_time = time();
-        $time_left = $due_time - $current_time;
-        $days_left = floor($time_left / (60 * 60 * 24));
-        $hours_left = floor(($time_left % (60 * 60 * 24)) / (60 * 60));
-        
-        $time_left_str = ($days_left > 0) ? $days_left . ' days ' . $hours_left . ' hrs' : ($hours_left > 0 ? $hours_left . ' hrs' : 'Expired');
 
         echo '
-            <div class="course-box" id="assignment_row_' . htmlspecialchars($row['assignment_id']) . '">
+            <div class="course-box" id="module_row_' . htmlspecialchars($row['module_id']) . '">
                 <div class="course-info">
                     <p><strong>Description:</strong> ' . htmlspecialchars($row['description']) . '</p>
-                    <p><strong>Time Left:</strong> ' . $time_left_str . '</p>
+                    <p><strong>Date Added:</strong> ' . $row['added'] . '</p>
                 </div>
                 <div class="course-actions">
-                    <button class="delete-button" type="button" onclick="deleteAssignment(' . htmlspecialchars($row['assignment_id']) . ')">Delete</button>
+                    <button class="delete-button" type="button" onclick="deleteModule(' . htmlspecialchars($row['module_id']) . ')">Delete</button>
                     <button class="edit-button" type="button">
-                        <a href="assignments.php?assignment=' . htmlspecialchars($row['assignment_id']) . '" style="color: white; text-decoration: none;">Assignments</a>
+                        <a href="assignments.php?assignment=' . htmlspecialchars($row['module_id']) . '" style="color: white; text-decoration: none;">View</a>
                     </button> 
                 </div>
             </div>';
@@ -132,25 +125,25 @@ $conn->close();
         window.history.back();
     }
     
-    function deleteAssignment(assignment_id) {
-        if (confirm("Are you sure you want to delete this assignment?")) {
+    function deleteModule(module_id) {
+        if (confirm("Are you sure you want to delete this module?")) {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "delete_assignments.php", true);
+            xhr.open("POST", "delete_module.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onload = function() {
                 if (xhr.status === 200) {
-                    var row = document.getElementById("assignment_row_" + assignment_id);
+                    var row = document.getElementById("module_row_" + module_id);
                     if (row) {
                         row.parentNode.removeChild(row);
                     }
-                    if (!document.querySelector('.course-container .course-box')) {
+                    if (!document.querySelector('.course-container .course-box')) { 
                         window.history.back();
                     }
                 } else {
                     console.error("Delete request failed with status: " + xhr.status);
                 }
             };
-            xhr.send("assignment_id=" + assignment_id);
+            xhr.send("module_id=" + module_id);
         }
     }
 </script>

@@ -7,62 +7,72 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 require 'vendor/autoload.php';
 
-if (isset($_POST['fullname']) && isset($_POST['contact_no']) && isset($_POST['address']) && isset($_POST['email_id']) && isset($_POST['student_id']) && isset($_POST['dob']) && isset($_POST['password']) && isset($_POST['gender']) && isset($_POST['category'])) {
+    if (isset($_POST['fullname']) && isset($_POST['contact_no']) && isset($_POST['address']) && isset($_POST['email_id']) && isset($_POST['student_id']) && isset($_POST['dob']) && isset($_POST['password']) && isset($_POST['gender']) && isset($_POST['category'])) {
 
-    $fullname = mysqli_real_escape_string($conn, $_POST['fullname']);
-    $contact_no = mysqli_real_escape_string($conn, $_POST['contact_no']);
-    $address = mysqli_real_escape_string($conn, $_POST['address']);
-    $email_id = mysqli_real_escape_string($conn, $_POST['email_id']);
-    $student_id = mysqli_real_escape_string($conn, $_POST['student_id']);
-    $dob = mysqli_real_escape_string($conn, $_POST['dob']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $gender = mysqli_real_escape_string($conn, $_POST['gender']);
-    $category = mysqli_real_escape_string($conn, $_POST['category']);
-    $verify_token = md5(rand());
+        $fullname = mysqli_real_escape_string($conn, $_POST['fullname']);
+        $contact_no = mysqli_real_escape_string($conn, $_POST['contact_no']);
+        $address = mysqli_real_escape_string($conn, $_POST['address']);
+        $email_id = mysqli_real_escape_string($conn, $_POST['email_id']);
+        $student_id = mysqli_real_escape_string($conn, $_POST['student_id']);
+        $dob = mysqli_real_escape_string($conn, $_POST['dob']);
+        $password = mysqli_real_escape_string($conn, $_POST['password']);
+        $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+        $category = mysqli_real_escape_string($conn, $_POST['category']);
+        $section = mysqli_real_escape_string($conn, $_POST['section']);
+        $verify_token = md5(rand());
 
-    $sql = mysqli_query($conn, "SELECT * FROM student WHERE email_id = '$email_id'");
-    if (mysqli_num_rows($sql) > 0) {
-        echo '<script>alert("Email Already Exists");</script>';
-        echo "<script>location.replace('student_register.php')</script>";
-        exit;
-    } else {
-
-        $query = "INSERT INTO student (name, contactno, address, email_id, dob, password, gender, student_id, verify_token, course) VALUES ('$fullname', '$contact_no', '$address', '$email_id', '$dob', '$password', '$gender', '$student_id', '$verify_token', '$category')";
-        $sql = mysqli_query($conn, $query);
-        if ($sql) {
-            // Get the last inserted ID
-            $last_insert_id = mysqli_insert_id($conn);
-
-            // Send verification email
-            $mail = new PHPMailer(true);
-            try {
-                $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'qcujournal@gmail.com';
-                $mail->Password = 'txtprxrytyqmloth';
-                $mail->SMTPSecure = 'ssl';
-                $mail->Port = 465;
-
-                $mail->setFrom('from@example.com', 'Your Name');
-                $mail->addAddress($email_id, $fullname); 
-
-                $mail->isHTML(true); 
-                $mail->Subject = 'Verify Your Email Address';
-                $mail->Body    = 'Please click the following link to verify your email address: <a href="http://localhost/CSDLMS/verify.php?id='.$last_insert_id.'">Verify Email</a>';
-
-                $mail->send();
-                echo '<script>alert("Registration Successful. Verification email sent.");</script>';
-                echo "<script>location.replace('index.php')</script>";
-            } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            }
+        $sql = mysqli_query($conn, "SELECT * FROM student WHERE email_id = '$email_id'");
+        if (mysqli_num_rows($sql) > 0) {
+            echo '<script>alert("Email Already Exists");</script>';
+            echo "<script>location.replace('student_register.php')</script>";
+            exit;
         } else {
-            die("Couldn't Perform Query: " . mysqli_error($conn));
+
+            $query = "INSERT INTO student (name, contactno, address, email_id, dob, password, gender, student_id, verify_token, course, section) VALUES ('$fullname', '$contact_no', '$address', '$email_id', '$dob', '$password', '$gender', '$student_id', '$verify_token', '$category', '$section')";
+            $sql = mysqli_query($conn, $query);
+            if ($sql) {
+                // Get the last inserted ID
+                $last_insert_id = mysqli_insert_id($conn);
+
+                // Send verification email
+                $mail = new PHPMailer(true);
+                try {
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'qcujournal@gmail.com';
+                    $mail->Password = 'txtprxrytyqmloth';
+                    $mail->SMTPSecure = 'ssl';
+                    $mail->Port = 465;
+
+                    $mail->setFrom('from@example.com', 'Your Name');
+                    $mail->addAddress($email_id, $fullname); 
+
+                    $mail->isHTML(true); 
+                    $mail->Subject = 'Verify Your Email Address';
+                    $mail->Body    = 'Please click the following link to verify your email address: <a href="http://localhost/CSDLMS/verify.php?id='.$last_insert_id.'">Verify Email</a>';
+
+                    $mail->send();
+                    echo '<script>alert("Registration Successful. Verification email sent.");</script>';
+                    echo "<script>location.replace('index.php')</script>";
+                } catch (Exception $e) {
+                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                }
+            } else {
+                die("Couldn't Perform Query: " . mysqli_error($conn));
+            }
         }
     }
-}
-unset($_POST);
+    unset($_POST);
+
+   $courses_query = "SELECT course_id, course_name, course_code FROM course WHERE 1";
+   $courses_result = $conn->query($courses_query);
+   $courses = [];
+   if ($courses_result->num_rows > 0) {
+       while ($row = $courses_result->fetch_assoc()) {
+           $courses[] = $row;
+       }
+   }
 ?>
 <!doctype html>
 <html lang="en">
@@ -101,17 +111,25 @@ unset($_POST);
             <span id="fullname_error" style="color: red;"></span>
         </div>
         <div>
-            <label for="category">Course</label>
-            <select name="category" id="category" required>
-                <option value="select">Select course</option>
-                <option value="bsis">BSIS</option>
-                <option value="bsit">BSIT</option>
-                <option value="bscs">BSCS</option>
-                <option value="bsemc">BSEMC</option>
-            </select>
-            <span id="category_error" style="color: red;"></span>
-        </div>
+ 
+        <label for="course">Course:</label>
+        <select name="category" id="course" onchange="updateSections()" required>
+            <option value="">Select course</option>
+            <?php
+            foreach ($courses as $course) {
+                echo '<option value="' . htmlspecialchars($course['course_id']) . '">' . htmlspecialchars($course['course_code']) . '/' . htmlspecialchars($course['course_name']) . '</option>';
+            }
+            ?>
+        </select></br>
+        <span id="category_error" style="color: red;"></span>
+        </br>
+        <label for="section">Section:</label>
+        <select name="section" id="section" required>
+            <option value="">Select section</option>
+        </select>
+
         <div>
+        </br>
             <label for="contact">Contact Number</label>
             <input type="text" name="contact_no" id="contact_no" placeholder="Enter Contact No." oninput="formatContactNo()" maxlength="12" required>
             <span id="contact_no_error" style="color: red;"></span>
@@ -155,6 +173,25 @@ unset($_POST);
     </form>
 
     <script src="stdRegisterss.js"></script>
-</body>
+    <script>
+        const courses = <?php echo json_encode($courses); ?>;
 
+        function updateSections() {
+            const courseSelect = document.getElementById('course');
+            const sectionSelect = document.getElementById('section');
+            const selectedCourse = courseSelect.value;
+
+            // Clear previous sections
+            sectionSelect.innerHTML = '<option value="">Select section</option>';
+
+            // Populate sections based on the selected course
+            courses.forEach(course => {
+                if (course.course_id == selectedCourse) {
+                    sectionSelect.innerHTML += '<option value="' + course.course_code + '-A">' + course.course_code + '-A</option>';
+                    sectionSelect.innerHTML += '<option value="' + course.course_code + '-B">' + course.course_code + '-B</option>';
+                }
+            });
+        }
+    </script>
+</body>
 </html>

@@ -41,7 +41,7 @@ if (isset($_SESSION['id'])) {
             echo '<p>Description: ' . $course_description . '</p>'; 
             echo '<button onclick="window.location.href = \'new_view_students.php?course_id=' . urlencode($course_id) . '&section=' . $course_section . '\';" style="margin-right: 10px;">Students</button>';
             echo '<button onclick="window.location.href = \'create_assignment.php?course_id=' . urlencode($course_id) . '&section=' . $course_section .'&subject=' . $subject_id .'\';" style="margin-right: 10px;">Assignment</button>';
-            echo '<button onclick="window.location.href = \'create_module.php?course_id=' . urlencode($course_id) . '\';">Module</button>';
+            echo '<button onclick="window.location.href = \'create_module.php?course_id=' . urlencode($course_id) . '&section=' . $course_section .'&subject=' . $subject_id .'\';">Module</button>';
             echo '</div>';
             echo '</div>';
             echo '</div>';

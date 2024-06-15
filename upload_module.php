@@ -20,28 +20,27 @@ print_r($_POST);
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
         include('connect.php');
         session_start();
-        
+
         $description = $_POST['description'];
 
         if (empty($description)) {
             echo "<script>alert('Description empty!'); window.location.href='new_instructor_profile.php';</script>";
             exit();
         } else {
-
+            
         $course_id = $_SESSION['course_id'];
         $instructor_id = $_SESSION['ins_id'];
         $description = $_POST['description'];
         $section = $_POST['section'];
         $subject = $_POST['subject'];
-        $due_time = $_POST['due_time'];
 
         $files = $_FILES['files'];
         $allowed = array('jpg', 'jpeg', 'png', 'pdf', 'docx', 'mp4', 'ppt');
         $upload_directory = 'uploads/';
 
         // Insert assignment information
-        $sql_assignment = "INSERT INTO assignment (course_id, instructor_id, description, section, subject, due_time) VALUES ('$course_id', '$instructor_id', '$description', '$section', '$subject', '$due_time')";
-        if (mysqli_query($conn, $sql_assignment)) {
+        $sql_module = "INSERT INTO module (course_id, instructor_id, description, section, subject) VALUES ('$course_id', '$instructor_id', '$description', '$section', '$subject')";
+        if (mysqli_query($conn, $sql_module)) {
             $last_insert_id = mysqli_insert_id($conn); // Get the last inserted assignment ID
 
             // Process each uploaded file
@@ -61,7 +60,7 @@ print_r($_POST);
                             $fileDestination = $upload_directory . $fileNewName;
                             if (move_uploaded_file($fileTmpName, $fileDestination)) {
                                 // Insert file information into database
-                                $sql_file = "INSERT INTO assignment_files (assignment_id, file_path) VALUES ('$last_insert_id', '$fileDestination')";
+                                $sql_file = "INSERT INTO module_files (module_id, file_path) VALUES ('$last_insert_id', '$fileDestination')";
                                 if (mysqli_query($conn, $sql_file)) {
                                 } else {
                                     echo "<script>alert('Error uploading file to database');</script>";
