@@ -61,6 +61,10 @@
         ?>
         <br>
         <div>
+            <label for="Assignment">Module Title : </label>
+            <input type="text" name="title" class="modal-content" style="margin-top: -1px; margin-bottom: -1px;"></input>
+        </div>
+        <div>
             <label for="Assignment">Module Description : </label>
             <textarea name="description" id="module_form" cols="30" rows="4"></textarea>
             <input type="hidden" name="section" value="<?php echo $_GET['section']; ?>">

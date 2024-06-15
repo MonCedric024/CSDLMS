@@ -15,8 +15,8 @@
         }
 
         .course-box {
-            width: calc(30% - 20px); 
-            height: 150px;
+            width: calc(40% - 20px); 
+            height:calc(100% - 20px);
             background-color: #f9f9f9;
             border: 5px solid #ddd;
             border-radius: 30px;
@@ -100,13 +100,14 @@ if ($result->num_rows > 0) {
         echo '
             <div class="course-box" id="module_row_' . htmlspecialchars($row['module_id']) . '">
                 <div class="course-info">
-                    <p><strong>Description:</strong> ' . htmlspecialchars($row['description']) . '</p>
+                    <p><strong>Title:</strong> ' . htmlspecialchars($row['title']) . '</p></br>
+                    <p><strong>Description:</strong> ' . htmlspecialchars($row['description']) . '</p></br>
                     <p><strong>Date Added:</strong> ' . $row['added'] . '</p>
                 </div>
                 <div class="course-actions">
                     <button class="delete-button" type="button" onclick="deleteModule(' . htmlspecialchars($row['module_id']) . ')">Delete</button>
                     <button class="edit-button" type="button">
-                        <a href="assignments.php?assignment=' . htmlspecialchars($row['module_id']) . '" style="color: white; text-decoration: none;">View</a>
+                        <a href="view_module_content.php?module=' . htmlspecialchars($row['module_id']) . '" style="color: white; text-decoration: none;">View</a>
                     </button> 
                 </div>
             </div>';

@@ -15,6 +15,23 @@ if (isset($subject)) {
     $stmt->execute();
     $result = $stmt->get_result();
 }
+
+if (!empty($subject)) {
+    $stmt = $conn->prepare("SELECT title FROM subject WHERE id = ?");
+    $stmt->bind_param('s', $subject);
+    $stmt->execute();
+    $result1 = $stmt->get_result();
+    
+    if ($result1->num_rows > 0) {
+        $row = $result1->fetch_assoc();
+        $_SESSION['title'] = $row['title'];
+    } else {
+        $_SESSION['title'] = 'Description not found.';
+    }
+    
+    $stmt->close();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -61,13 +78,13 @@ if (isset($subject)) {
     </ul>
 
     <ul class="course" style="width: 200px; margin-left: 300px;">
-        <p class="course_name"><?php echo isset($_SESSION['course_name']) ? htmlspecialchars($_SESSION['course_name']) : ''; ?></p>
+        <p class="course_name"></p>
         <li><a href="new_view_course.php?subject=<?php echo $subject; ?>">Modules</a></li>
         <li><a href="new_student_assignment.php?subject=<?php echo $subject; ?>" class="course_active">Assignments</a></li>
         <li><a href="new_feedback.php?course_id=<?php echo htmlspecialchars($course_id); ?>">Feedbacks</a></li>
     </ul> 
     <div class="accordion_box" style="margin-left: 550px;">
-        <h1>Assignments for <?php echo isset($_SESSION['course_name']) ? htmlspecialchars($_SESSION['course_name']) : ''; ?></h1>
+        <h1>Assignments for <?php echo isset($_SESSION['title']) ? htmlspecialchars($_SESSION['title']) : ''; ?></h1>
         <?php
         if (isset($result) && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {

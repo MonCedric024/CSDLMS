@@ -21,15 +21,16 @@ print_r($_POST);
         include('connect.php');
         session_start();
 
-        $description = $_POST['description'];
+        $title = $_POST['title'];
 
-        if (empty($description)) {
-            echo "<script>alert('Description empty!'); window.location.href='new_instructor_profile.php';</script>";
+        if (empty($title)) {
+            echo "<script>alert('Title can't be empty!'); window.location.href='new_instructor_profile.php';</script>";
             exit();
         } else {
             
         $course_id = $_SESSION['course_id'];
         $instructor_id = $_SESSION['ins_id'];
+        $title = $_POST['title'];
         $description = $_POST['description'];
         $section = $_POST['section'];
         $subject = $_POST['subject'];
@@ -39,7 +40,7 @@ print_r($_POST);
         $upload_directory = 'uploads/';
 
         // Insert assignment information
-        $sql_module = "INSERT INTO module (course_id, instructor_id, description, section, subject) VALUES ('$course_id', '$instructor_id', '$description', '$section', '$subject')";
+        $sql_module = "INSERT INTO module (course_id, instructor_id, title, description, section, subject) VALUES ('$course_id', '$instructor_id', '$title', '$description', '$section', '$subject')";
         if (mysqli_query($conn, $sql_module)) {
             $last_insert_id = mysqli_insert_id($conn); // Get the last inserted assignment ID
 

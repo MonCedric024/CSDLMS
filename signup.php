@@ -58,6 +58,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             $_SESSION['name'] = $row['name'];
             $_SESSION['student_id'] = $row['student_id'];
             $_SESSION['section'] = $row['section'];
+            $_SESSION['id'] = $row['id'];
             unset($row);
             unset($result);
             echo "<script>location.replace('new_student_profile.php')</script>";
