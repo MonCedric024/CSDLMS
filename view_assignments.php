@@ -91,12 +91,14 @@ include('connect.php');
 
 if(isset($_GET['course_id'])) {
     $course_id = $_GET['course_id'];
+    $section = $_GET['section'];
+    $subject = $_GET['subject'];
 } else {
     header('Location: new_instructor_profile.php');
     exit();
 }
 
-$query = "SELECT * FROM Assignment WHERE course_id = '$course_id'";
+$query = "SELECT * FROM Assignment WHERE subject = '$subject' AND section = '$section'";
 $result = mysqli_query($conn, $query);
 
 if(mysqli_num_rows($result) > 0) {
@@ -125,8 +127,10 @@ if(mysqli_num_rows($result) > 0) {
                 </div>
                 <div class="course-actions">
                     <button class="delete-button" type="button" onclick="deleteAssignment('.$row['assignment_id'].')">Delete</button>
-                    <button class="edit-button" type="button" onclick="deleteAssignment('.$row['assignment_id'].')">Submission</button>
-                </div>
+                    <button class="edit-button" type="button">
+                        <a href="assignments.php?assignment='.$row['assignment_id'].'" style="color: white">Assignments</a>
+                    </button> 
+                    </div>
             </div>';
     }
     echo '</div>';

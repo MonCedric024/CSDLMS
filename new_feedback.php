@@ -19,7 +19,7 @@ session_start();
     <h3><?php echo 'Hello! '.$_SESSION['name']; ?></h3>
 </header>
 <ul class="view">
-<center><h3 class="logo"><img src="CSD.png" alt="CSD E-LMS Logo"></h3></center>
+  <center><h3 class="logo"><img src="CSD.png" alt="CSD E-LMS Logo"></h3></center>
   <hr>
   <li><a href="new_student_profile.php"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-dashboard"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 13m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M13.45 11.55l2.05 -2.05" /><path d="M6.4 20a9 9 0 1 1 11.2 0z" /></svg> Dashboard</a></li>
   <li><a href="new_mycourse.php" class="active"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-book"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" /><path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" /><path d="M3 6l0 13" /><path d="M12 6l0 13" /><path d="M21 6l0 13" /></svg> My Courses</a></li>
@@ -39,7 +39,7 @@ session_start();
 </ul> 
 <div>
   <!-- <h1>Feedbacks</h1> -->
-  <div class="box2" style="margin-left: 500px;" >
+  <div class="box2" style="margin-left: 550px;" >
   <?php
     if (isset($_GET['course_id'])) {
         $course_id = $_GET['course_id'];

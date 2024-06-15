@@ -60,20 +60,21 @@ session_start();
             instructor_subject.section = '$section';");
 
         if (mysqli_num_rows($sql2) > 0) {
-            echo '<div class="row" style="display: flex; flex-wrap: wrap; margin-left: 150px;">';
+            echo '<div class="row" style="display: flex; flex-wrap: wrap; margin-left: 140px;">';
             while ($row2 = mysqli_fetch_assoc($sql2)) {
                 $course_id = htmlspecialchars($row2['course_id'], ENT_QUOTES, 'UTF-8');
                 $course_name = htmlspecialchars($row2['course_name'], ENT_QUOTES, 'UTF-8');
+                $subject_id = htmlspecialchars($row2['subject_id'], ENT_QUOTES, 'UTF-8');
                 $course_description = htmlspecialchars($row2['description'], ENT_QUOTES, 'UTF-8');
                 $instructor_name = htmlspecialchars($row2['instructor_name'], ENT_QUOTES, 'UTF-8');
                 echo '<div class="col" style="flex: 1 0 21%; margin: 10px; box-sizing: border-box; padding: 0 10px;">';
-                echo '<div class="card" style="width: 600px; height: 450px; margin-bottom: 20px;">';
+                echo '<div class="card" style="width: 550px; height: 450px; margin-bottom: 20px;">';
                 echo '<img src="images/Coding-amico.png" alt="Course Image" style="width:150px; height: 150px;">';
                 echo '<div class="card_container" style="padding: 16px;">';
                 echo '<h4><b>' . $course_name . '</b></h4>';
                 echo '<p>Description: ' . $course_description . '</p>';
                 echo '<p>Instructor: ' . $instructor_name . '</p>';
-                echo '<button style="margin-right: 5px;" onclick="window.location.href = \'new_view_course_home.php?course_id=' . urlencode($course_id) . '\';">View</button>';
+                echo '<button style="margin-right: 5px;" onclick="window.location.href = \'new_view_course.php?course_id=' . urlencode($course_id) .'&subject='. urlencode($subject_id) .'\';">View</button>';
                 echo '</div>';
                 echo '</div>';
                 echo '</div>';

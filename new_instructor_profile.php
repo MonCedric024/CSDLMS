@@ -32,6 +32,7 @@ if (isset($_SESSION['id'])) {
             $course_title = htmlspecialchars($course['title'], ENT_QUOTES, 'UTF-8');
             $course_description = htmlspecialchars($course['description'], ENT_QUOTES, 'UTF-8');
             $course_section = htmlspecialchars($course['section'], ENT_QUOTES, 'UTF-8');
+            $subject_id = htmlspecialchars($course['subject_id'], ENT_QUOTES, 'UTF-8');
             echo '<div class="col" style="flex: 1 0 21%; margin: 5px; margin-left: 120px; box-sizing: border-box;">';
             echo '<div class="card" style="width: 100%;">';
             echo '<img src="images/Coding-amico.png" alt="Course Image" style="width:100px">';
@@ -39,7 +40,7 @@ if (isset($_SESSION['id'])) {
             echo '<p>' . $course_title . ' - ' . $course_section . '</p>';
             echo '<p>Description: ' . $course_description . '</p>'; 
             echo '<button onclick="window.location.href = \'new_view_students.php?course_id=' . urlencode($course_id) . '&section=' . $course_section . '\';" style="margin-right: 10px;">Students</button>';
-            echo '<button onclick="window.location.href = \'create_assignment.php?course_id=' . urlencode($course_id) . '&section=' . $course_section .'\';" style="margin-right: 10px;">Assignment</button>';
+            echo '<button onclick="window.location.href = \'create_assignment.php?course_id=' . urlencode($course_id) . '&section=' . $course_section .'&subject=' . $subject_id .'\';" style="margin-right: 10px;">Assignment</button>';
             echo '<button onclick="window.location.href = \'create_module.php?course_id=' . urlencode($course_id) . '\';">Module</button>';
             echo '</div>';
             echo '</div>';

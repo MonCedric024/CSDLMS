@@ -47,12 +47,12 @@ session_start();
                 echo '<td>' . $assignment_name . '</td>';
                 echo '<td>' . $due_date . '</td>';
                 echo '<td>';
-if ($submission_result && $submission_result->num_rows > 0) {
-    echo '<a href="view_submissions.php?assignment_id=' . $assignment_id . '">View Submissions</a>';
-} else {
-    echo 'Not yet submitted';
-}
-echo '</td>';
+            if ($submission_result && $submission_result->num_rows > 0) {
+                echo '<a href="view_submissions.php?assignment_id=' . $assignment_id . '">View Submissions</a>';
+            } else {
+                echo 'Not yet submitted';
+            }
+            echo '</td>';
 
                 echo '</tr>';
             }

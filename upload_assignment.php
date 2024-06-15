@@ -24,6 +24,8 @@ print_r($_POST);
         $course_id = $_SESSION['course_id'];
         $instructor_id = $_SESSION['ins_id'];
         $description = $_POST['description'];
+        $section = $_POST['section'];
+        $subject = $_POST['subject'];
         $due_time = $_POST['due_time'];
 
         $files = $_FILES['files'];
@@ -31,7 +33,7 @@ print_r($_POST);
         $upload_directory = 'uploads/';
 
         // Insert assignment information
-        $sql_assignment = "INSERT INTO assignment (course_id, instructor_id, description, due_time) VALUES ('$course_id', '$instructor_id', '$description', '$due_time')";
+        $sql_assignment = "INSERT INTO assignment (course_id, instructor_id, description, section, subject, due_time) VALUES ('$course_id', '$instructor_id', '$description', '$section', '$subject', '$due_time')";
         if (mysqli_query($conn, $sql_assignment)) {
             $last_insert_id = mysqli_insert_id($conn); // Get the last inserted assignment ID
 

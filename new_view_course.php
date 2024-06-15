@@ -2,6 +2,8 @@
 include('connect.php');
 session_start();
 
+$subject = $_GET['subject'];
+
 // Check if the course name is set in the URL
 if(isset($_GET['course'])) {
     $_SESSION['course_name'] = htmlspecialchars($_GET['course']);
@@ -59,11 +61,11 @@ $defaultAccordions = 5;
         <p class="course_name"><?php echo isset($_SESSION['course_name']) ? $_SESSION['course_name'] : ''; ?></p>
         <!--<li><a href="new_view_course_home.php">Home</a></li>-->
         
-        <li><a href="new_view_course.php" class="course_active">Modules</a></li>
-        <li><a href="new_student_assignment.php" >Assignments</a></li>
+        <li><a href="new_view_course.php?subject=<?php echo $subject; ?>" class="course_active">Modules</a></li>
+        <li><a href="new_student_assignment.php?subject=<?php echo $subject; ?>" >Assignments</a></li>
         <li><a href="new_feedback.php?course_id=<?php echo $course_id; ?>">Feedbacks</a></li>
     </ul> 
-    <div class="accordion_box">
+    <div class="accordion_box" style="margin-left: 550px;">
         <?php
         $lessonNumber = 1; 
         $moduleNumber = 1; 

@@ -63,6 +63,8 @@
         <div>
             <label for="Assignment">Assignment Description : </label>
             <textarea name="description" id="assignment_form" cols="30" rows="4"></textarea>
+            <input type="hidden" name="section" value="<?php echo $_GET['section']; ?>">
+            <input type="hidden" name="subject" value="<?php echo $_GET['subject']; ?>">
         </div>
         <div>
             Due Date<input type="datetime-local" name="due_time" id="due_time">
@@ -78,7 +80,7 @@
         <div class="navigation">
             <div class="navigation-buttons">
                 <a href="new_instructor_profile.php" class="button">BACK</a>
-                <a href="view_assignments.php?course_id=<?php echo $_GET['course_id']; ?>" class="button">View Assignments</a>
+                <a href="view_assignments.php?course_id=<?php echo $_GET['course_id']; ?>&section=<?php echo $_GET['section']; ?>&subject=<?php echo $_GET['subject']; ?>" class="button">View Assignments</a>
             </div>  
         </div>
     </form>

@@ -4,6 +4,7 @@ session_start();
 
 if (isset($_POST['submit'])) {
     // Get form data
+    $subject = $_POST['subject'];
     $assignment_id = $_POST['aid'];
     $course_id = $_POST['cid'];
     $student_id = $_POST['student_id'];
@@ -45,7 +46,7 @@ if (isset($_POST['submit'])) {
                     mysqli_stmt_execute($insert_stmt);
 
                     echo "<script>alert('Uploaded Successfully');</script>";
-                    echo "<script>window.location.replace('new_student_assignment.php');</script>";
+                    echo "<script>window.location.replace('new_student_assignment.php?subject= $subject');</script>";
                 }
             } else {
                 echo 'File is too large!';
